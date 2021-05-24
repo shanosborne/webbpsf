@@ -100,7 +100,8 @@ def distort_image(hdulist_or_filename, ext=0, to_frame='sci', fill_value=0,
 
     # Read in input PSF
     if isinstance(hdulist_or_filename, str):
-        hdu_list = fits.open(hdulist_or_filename)
+        with fits.open(hdulist_or_filename) as hdu_list:
+            hdu_list = copy.deepcopy(hdu_list)
     elif isinstance(hdulist_or_filename, fits.HDUList):
         hdu_list = hdulist_or_filename
     else:
@@ -210,7 +211,8 @@ def apply_distortion(hdulist_or_filename=None, fill_value=0):
 
     # Read in input PSF
     if isinstance(hdulist_or_filename, str):
-        hdu_list = fits.open(hdulist_or_filename)
+        with fits.open(hdulist_or_filename) as hdu_list:
+            hdu_list = copy.deepcopy(hdu_list)
     elif isinstance(hdulist_or_filename, fits.HDUList):
         hdu_list = hdulist_or_filename
     else:
@@ -276,7 +278,8 @@ def apply_rotation(hdulist_or_filename=None, rotate_value=None, crop=True):
 
     # Read in input PSF
     if isinstance(hdulist_or_filename, str):
-        hdu_list = fits.open(hdulist_or_filename)
+        with fits.open(hdulist_or_filename) as hdu_list:
+            hdu_list = copy.deepcopy(hdu_list)
     elif isinstance(hdulist_or_filename, fits.HDUList):
         hdu_list = hdulist_or_filename
     else:
@@ -420,7 +423,8 @@ def apply_miri_scattering(hdulist_or_filename=None, kernel_amp=None):
 
     # Read in input PSF
     if isinstance(hdulist_or_filename, str):
-        hdu_list = fits.open(hdulist_or_filename)
+        with fits.open(hdulist_or_filename) as hdu_list:
+            hdu_list = copy.deepcopy(hdu_list)
     elif isinstance(hdulist_or_filename, fits.HDUList):
         hdu_list = hdulist_or_filename
     else:

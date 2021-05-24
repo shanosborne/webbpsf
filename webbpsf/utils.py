@@ -1,5 +1,6 @@
 from collections import OrderedDict
-import os, sys
+import copy
+import sys
 import astropy.io.fits as fits
 from astropy.nddata import NDData
 import numpy as np
@@ -454,7 +455,8 @@ def measure_strehl(HDUlist_or_filename=None, ext=0, slice=0, center=None, displa
     from poppy import display_psf
 
     if isinstance(HDUlist_or_filename, str):
-        HDUlist = fits.open(HDUlist_or_filename)
+        with fits.open(HDUlist_or_filename) as HDUlist:
+            HDUlist = copy.deepcopy(HDUlist)
     elif isinstance(HDUlist_or_filename, fits.HDUList):
         HDUlist = HDUlist_or_filename
     else:
@@ -730,7 +732,8 @@ def to_griddedpsfmodel(HDUlist_or_filename=None, ext_data=0, ext_header=0):
         raise ImportError("This method requires photutils >= 0.6")
 
     if isinstance(HDUlist_or_filename, str):
-        HDUlist = fits.open(HDUlist_or_filename)
+        with fits.open(HDUlist_or_filename) as HDUlist:
+            HDUlist = copy.deepcopy(HDUlist)
     elif isinstance(HDUlist_or_filename, fits.HDUList):
         HDUlist = HDUlist_or_filename
     else:

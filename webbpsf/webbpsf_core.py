@@ -1151,7 +1151,8 @@ class JWInstrument(SpaceTelescopeInstrument):
 
         """
 
-        wasopd = fits.open(inputWasOpd)
+        with fits.open(inputWasOpd) as wasopd:
+            wasopd = copy.deepcopy(wasopd)
         arrayOPD = wasopd[1].data
         dim = arrayOPD.shape[0]
         hdr = wasopd[0].header
@@ -2449,7 +2450,9 @@ def calc_or_load_PSF(filename, inst, overwrite=False, **kwargs):
     """
     if os.path.exists(filename) and not overwrite:
         _log.info("Already exists, no need to recalculate: "+filename)
-        return fits.open(filename)
+        with fits.open(filename) as hdu:
+            hdu = copy.deepcopy(hdu)
+        return hdu
     else:
         return inst.calc_psf(outfile=filename, **kwargs)
 
@@ -2601,7 +2604,8 @@ def one_segment_pupil(segmentname, npix=1024):
         # try without .gz
         segmap = os.path.join(utils.get_webbpsf_data_path(), f"JWpupil_segments_RevW_npix{npix}.fits")
 
-    newpupil = fits.open(segmap)
+    with fits.open(segmap) as newpupil:
+        newpupil = copy.deepcopy(newpupil)
     if newpupil[0].header['VERSION'] < 2:
         raise RuntimeError(f"Expecting file version >= 2 for {segmap}")
 
