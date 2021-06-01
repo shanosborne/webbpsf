@@ -79,8 +79,8 @@ def test_measure_strehl(npix=100):
 
 
     #compare to answer from Marechal approx on OPD rms WFE
-    with fits.open(os.path.join(utils.get_webbpsf_data_path(),'NIRCam','OPD', nc.pupilopd)) as opdfile:
-        opdfile = copy.deepcopy(opdfile)
+    with fits.open(os.path.join(utils.get_webbpsf_data_path(),'NIRCam','OPD', nc.pupilopd)) as hdu:
+        opdfile = copy.deepcopy(hdu)
     wfe_rms = opdfile[0].header['WFE_RMS']  # nm
 
     marechal_strehl = np.exp( -((wfe_rms *1e-9)/wave*(2*np.pi))**2)

@@ -455,8 +455,8 @@ def measure_strehl(HDUlist_or_filename=None, ext=0, slice=0, center=None, displa
     from poppy import display_psf
 
     if isinstance(HDUlist_or_filename, str):
-        with fits.open(HDUlist_or_filename) as HDUlist:
-            HDUlist = copy.deepcopy(HDUlist)
+        with fits.open(HDUlist_or_filename) as hdu:
+            HDUlist = copy.deepcopy(hdu)
     elif isinstance(HDUlist_or_filename, fits.HDUList):
         HDUlist = HDUlist_or_filename
     else:
@@ -732,8 +732,8 @@ def to_griddedpsfmodel(HDUlist_or_filename=None, ext_data=0, ext_header=0):
         raise ImportError("This method requires photutils >= 0.6")
 
     if isinstance(HDUlist_or_filename, str):
-        with fits.open(HDUlist_or_filename) as HDUlist:
-            HDUlist = copy.deepcopy(HDUlist)
+        with fits.open(HDUlist_or_filename) as hdu:
+            HDUlist = copy.deepcopy(hdu)
     elif isinstance(HDUlist_or_filename, fits.HDUList):
         HDUlist = HDUlist_or_filename
     else:

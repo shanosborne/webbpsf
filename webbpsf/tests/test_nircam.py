@@ -170,8 +170,8 @@ def do_test_nircam_blc(clobber=False, kind='circular', angle=0, save=False, disp
                 plt.savefig(fnout+".pdf")
                 psf.writeto(fnout, clobber=clobber)
         else:
-            with fits.open(fnout) as psf:
-                psf = copy.deepcopy(psf)
+            with fits.open(fnout) as hdu:
+                psf = copy.deepcopy(hdu)
         totflux = psf[0].data.sum()
 
         #print("Offset: {}    Expected Flux: {}  Calc Flux: {}".format(offset,exp_flux,totflux))
